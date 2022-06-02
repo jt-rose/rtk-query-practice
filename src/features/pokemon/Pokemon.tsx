@@ -1,7 +1,7 @@
 import { useGetRandomPokemonQuery } from "./pokemonAPI";
 
 export const Pokemon = () => {
-  const { data, error, isLoading } = useGetRandomPokemonQuery(null);
+  const { data, error, isLoading, refetch } = useGetRandomPokemonQuery(null);
 
   if (isLoading) {
     return <h1>...loading</h1>;
@@ -17,6 +17,7 @@ export const Pokemon = () => {
           <li key={t.type.name}>{t.type.name}</li>
         ))}
       </ul>
+      <button onClick={refetch}>Get New Pokemon</button>
     </>
   );
 };
