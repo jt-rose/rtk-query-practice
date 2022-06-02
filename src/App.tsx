@@ -1,9 +1,13 @@
-import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
-import './App.css';
+import React from "react";
+import logo from "./logo.svg";
+import { Counter } from "./features/counter/Counter";
+import "./App.css";
+import { useGetRandomPokemonQuery } from "./features/pokemon/pokemonAPI";
 
 function App() {
+  const { data, error, isLoading } = useGetRandomPokemonQuery(null);
+
+  console.log(data);
   return (
     <div className="App">
       <header className="App-header">
@@ -51,6 +55,16 @@ function App() {
           </a>
         </span>
       </header>
+      {!isLoading && (
+        <>
+          <h1>Pokemon: {data.name}</h1>
+          <ul>
+            {(data.types as any[]).map((t) => (
+              <li key={t.type.name}>{t.type.name}</li>
+            ))}
+          </ul>
+        </>
+      )}
     </div>
   );
 }
